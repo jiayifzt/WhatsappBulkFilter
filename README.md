@@ -1,5 +1,5 @@
 # WhatsappBulkFilter
-Filter a list of numbers if they have a Whatsapp account
+Check a list of numbers if they have a Whatsapp account
 1. You need python3 installed in your system.
 2. You need `selenium` module installed in your system, You can use `pip3 install <module_name>`
 3. You need also to download and install Chrome WebDriver, this may help : https://stackoverflow.com/questions/42478591/python-selenium-chrome-webdriver
