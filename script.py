@@ -11,6 +11,14 @@ class style():
     YELLOW = '\033[33m'
     BOLD = '\033[1m'
     RESET = '\033[0m'
+def checklogin():
+	try:
+	    WebDriverWait(driver, timeout=5).until(EC.presence_of_element_located((
+	        By.XPATH, '//*[@id="app"]/div[1]/div[1]/div[4]/div/div/div[1]'
+	    )))
+	    return True
+	except:
+	    return False
 print(style.GREEN+style.BOLD+"""
  __        ___           _                         
  \ \      / / |__   __ _| |_ ___  __ _ _ __  _ __  
@@ -28,15 +36,15 @@ print(style.BOLD+style.YELLOW+"[+]GITHUB : https://github.com/Eljakani"+style.RE
 print(style.BOLD+"[+]Starting Web Client ..."+style.RESET)
 driver = webdriver.Chrome('/usr/bin/chromedriver')
 driver.get("https://web.whatsapp.com/")
-print(style.BOLD+"[+]Scan the QR Code to continue"+style.BOLD)
-try:
-    WebDriverWait(driver, timeout=50).until(EC.presence_of_element_located((
-        By.XPATH, '//*[@id="app"]/div[1]/div[1]/div[4]/div/div/div[1]'
-    )))
-    print(style.BOLD+style.GREEN+"=> Successfully logged in"+style.RESET)
-except:
-    print(style.BOLD+style.RED+"=> You aren't logged in"+style.RESET)
-    exit()
+while(not checklogin()):
+	print(style.BOLD+"[+]Scan the QR Code to continue"+style.BOLD)
+	try:
+	    WebDriverWait(driver, timeout=50).until(EC.presence_of_element_located((
+	        By.XPATH, '//*[@id="app"]/div[1]/div[1]/div[4]/div/div/div[1]'
+	    )))
+	    print(style.BOLD+style.GREEN+"=> Successfully logged in"+style.RESET)
+	except:
+	    print(style.BOLD+style.RED+"=> You aren't logged in"+style.RESET)
 def checknumber(number):
 	driver.get("https://web.whatsapp.com/send?phone="+number+"&text&app_absent=0")
 	try:
@@ -45,11 +53,11 @@ def checknumber(number):
 		)))
 		try:
 			WebDriverWait(driver, timeout=5).until(EC.presence_of_element_located((
-			By.XPATH, '//*[@id="app"]/div[1]/span[2]/div[1]/span/div[1]/div/div/div'
+			By.XPATH, '/html/body/div[1]/div[1]/div[1]/div[4]/div[1]/header/div[1]/div/div/span'
 			)))
-			return False
-		except:
 			return True
+		except:
+			return False
 	except:
 			return False
 def progress(count, total, suffix=''):
